@@ -1,6 +1,8 @@
 import db from "../initDB.js";
 
 export const takecards = async (req, res) => {
+  const { repeats } = req.body;
+
   const apiUrl = "https://deckofcardsapi.com/api/deck/new/draw/?count=52";
   try {
     const response = await fetch(apiUrl);
@@ -49,9 +51,10 @@ export const takecards = async (req, res) => {
       )`
     );
 
+    for (let i = 0; i < repeats; i++){
     await Promise.all(
       formattedData.map((item) => db.none(insertQuery, [item.card, item.value]))
-    );
+    );}
 
     res.status(201).json({ message: "Carte inserite con successo!" });
   } catch (err) {
