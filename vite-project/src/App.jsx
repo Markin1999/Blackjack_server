@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Start from "./Componenti/start";
+import "./App.css";
 
 function App() {
   return (
