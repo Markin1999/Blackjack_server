@@ -20,6 +20,7 @@ body {
   padding: 20px;
   margin: 0;
   border-radius: 30%;
+  position: relative;
 }
 .start-container img {
   width: 80%;
@@ -30,6 +31,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
 }
 
@@ -55,4 +57,8 @@ body {
 
 .start-option label {
   color: white;
+}
+
+.homepage-option {
+  background-color: white;
 }

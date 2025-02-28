@@ -14,6 +14,7 @@ export const takecards = async (req, res) => {
     const formattedData = data.cards.map((item) => ({
       card: item.code,
       value: item.value,
+      img: item.image,
     }));
 
     formattedData.forEach((item) => {
@@ -39,7 +40,7 @@ export const takecards = async (req, res) => {
         item.value = parseInt(item.value);
       }
     });
-    const insertQuery = `INSERT INTO card (name, value) VALUES ($1, $2)`;
+    const insertQuery = `INSERT INTO card (name, value, img) VALUES ($1, $2, $3)`;
 
     await db.none(`DROP TABLE IF EXISTS card`);
 
@@ -47,14 +48,18 @@ export const takecards = async (req, res) => {
       `CREATE TABLE IF NOT EXISTS card(
       id SERIAL NOT NULL PRIMARY KEY,
       name TEXT NOT NULL,
-      value INTEGER NOT NULL CHECK (value>=0 AND value <=9)
+      value INTEGER NOT NULL CHECK (value>=0 AND value <=9),
+      img TEXT
       )`
     );
 
-    for (let i = 0; i < repeats; i++){
-    await Promise.all(
-      formattedData.map((item) => db.none(insertQuery, [item.card, item.value]))
-    );}
+    for (let i = 0; i < repeats; i++) {
+      await Promise.all(
+        formattedData.map((item) =>
+          db.none(insertQuery, [item.card, item.value, item.img])
+        )
+      );
+    }
 
     res.status(201).json({ message: "Carte inserite con successo!" });
   } catch (err) {

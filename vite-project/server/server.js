@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { getAll, takecards } from "./controllers/controllers.js";
+import value from "./controllers/somma.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 // -----------
 app.post("/", takecards);
+app.post("/dc", value);
 app.get("/", getAll);
 
 // LISTEN

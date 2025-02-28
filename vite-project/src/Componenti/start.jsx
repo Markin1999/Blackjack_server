@@ -24,8 +24,9 @@ export default function Start() {
     }
   };
 
-  const handleSubmit = () => {
-    fetchCard();
+  const handleSubmit = async () => {
+    await fetchCard();
+    navToDashboard("/homepage");
   };
 
   return (
@@ -38,9 +39,9 @@ export default function Start() {
         />
 
         <div className="start-container-option">
-          <button onSubmit={handleSubmit}>START</button>
+          <button onClick={handleSubmit}>START</button>
           <div className="start-option">
-            <label for="scelta">Scegli quanti mazzi:</label>
+            <label htmlFor="scelta">Scegli quanti mazzi:</label>
             <select
               id="scelta"
               name="scelta"
