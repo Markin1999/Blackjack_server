@@ -7,9 +7,7 @@ const getAll = async () => {
 };
 //Chiamo tutte le carte con il valore tra 2 e 6
 async function lowValue() {
-  return await db.manyOrNone(
-    `SELECT * FROM card WHERE value <= 2 OR value >= 6`
-  );
+  return await db.manyOrNone(`SELECT * FROM card WHERE value BETWEEN 2 AND 6`);
 }
 
 //Chiamo tutte le carte con il valore = a 1 e a 10
@@ -28,8 +26,30 @@ export default async function value(req, res) {
     const low = await lowValue();
     const high = await highValue();
 
+    let prevValore = 0;
+
+    if (lastValue !== undefined || lastValue !== null) {
+      const cardValue = parseInt(lastValue); // Converte il valore in numero
+
+      if ([2].includes(cardValue)) {
+        prevValore += 0.5;
+      } else if ([3, 6].includes(cardValue)) {
+        prevValore += 1;
+      } else if ([4, 5].includes(cardValue)) {
+        prevValore += 1.5;
+      } else if ([7].includes(cardValue)) {
+        prevValore += 0.5;
+      } else if ([9].includes(cardValue)) {
+        prevValore -= 0.5;
+      } else if ([0, 1].includes(cardValue)) {
+        prevValore -= 1;
+      } else if ([8].includes(cardValue)) {
+        prevValore += 0; // Rimane invariato
+      }
+    }
+
     const mazzi = cards.length / 52;
-    const dynamicTC = parseInt(lastValue) / mazzi;
+    const dynamicTC = prevValore / mazzi;
     const dynamicTC2 = high.length / low.length;
     const dynamicTC3 = dynamicTC / dynamicTC2;
 

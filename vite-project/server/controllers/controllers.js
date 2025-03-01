@@ -1,7 +1,8 @@
 import db from "../initDB.js";
 
-export const takecards = async (req, res) => {
+/*export const takecards = async (req, res) => {
   const { repeats } = req.body;
+  console.log("Richiesta ricevuta per takecards");
 
   const apiUrl = "https://deckofcardsapi.com/api/deck/new/draw/?count=52";
   try {
@@ -40,6 +41,9 @@ export const takecards = async (req, res) => {
         item.value = parseInt(item.value);
       }
     });
+
+    console.log("Carte ricevute:", formattedData);
+
     const insertQuery = `INSERT INTO card (name, value, img) VALUES ($1, $2, $3)`;
 
     await db.none(`DROP TABLE IF EXISTS card`);
@@ -53,10 +57,47 @@ export const takecards = async (req, res) => {
       )`
     );
 
+    console.log("✅ Tabella card creata (se non esisteva)");
+
     for (let i = 0; i < repeats; i++) {
       await Promise.all(
         formattedData.map((item) =>
           db.none(insertQuery, [item.card, item.value, item.img])
+        )
+      );
+    }
+
+    res.status(201).json({ message: "Carte inserite con successo!" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Errore nel caricamento delle carte" });
+  }
+};*/
+
+export const takecards = async (req, res) => {
+  const { repeats } = req.body;
+
+  try {
+    // Elimina la tabella "card" se esiste
+    await db.none(`DROP TABLE IF EXISTS card`);
+
+    // Ricrea la tabella "card"
+    await db.none(`
+      CREATE TABLE IF NOT EXISTS card (
+        id SERIAL NOT NULL PRIMARY KEY,
+        name TEXT NOT NULL,
+        value INTEGER NOT NULL CHECK (value>=0 AND value <=9),
+        img TEXT
+      );
+    `);
+
+    const allCards = await db.manyOrNone(`SELECT name, value, img FROM cards`);
+
+    const insertQuery = `INSERT INTO card (name, value, img) VALUES ($1, $2, $3)`;
+    for (let i = 0; i < repeats; i++) {
+      await Promise.all(
+        allCards.map((item) =>
+          db.none(insertQuery, [item.name, item.value, item.img])
         )
       );
     }

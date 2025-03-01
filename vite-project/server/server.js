@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { getAll, takecards } from "./controllers/controllers.js";
 import value from "./controllers/somma.js";
+import deleteFunction from "./controllers/delete.js";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ app.use(cors());
 app.post("/", takecards);
 app.post("/dc", value);
 app.get("/", getAll);
+app.delete("/:id", deleteFunction);
 
 // LISTEN
 app.listen(PORT, () => {

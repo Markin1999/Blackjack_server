@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Start() {
   const [repeats, setRepeats] = useState(1);
+
+  const PORT = import.meta.env.VITE_PORT;
+
+  useEffect(() => {
+    console.log(PORT);
+  }, []);
 
   const navToDashboard = useNavigate();
 
@@ -12,11 +18,15 @@ export default function Start() {
 
   const fetchCard = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/`, {
+      const response = await fetch(`http://localhost:${PORT}/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ repeats }),
+        body: JSON.stringify({ repeats: Number(repeats) }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Errore nella richiesta: ${response.status}`);
+      }
 
       const data = await response.json();
     } catch (error) {
