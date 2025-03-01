@@ -73,17 +73,20 @@ export default function Card({ setDynamic }) {
       : [];
 
   return (
-    <div>
+    <div className="grid-container">
       {reduceArr.map((x) => {
         return (
-          <img
-            key={x.value}
-            src={x.img}
-            data-value={x.value}
-            onClick={handleClick}
-          />
+          <div className="grid-item">
+            <img
+              key={x.value}
+              src={x.img}
+              data-value={x.value}
+              onClick={handleClick}
+            />
+          </div>
         );
       })}
     </div>
   );
 }
+//style={{ width: "80px", height: "120px" }}

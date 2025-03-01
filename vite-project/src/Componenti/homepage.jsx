@@ -14,20 +14,21 @@ export default function Homepage() {
 
   return (
     <>
-      <div className="start-container">
-        <img
-          style={{ position: "relative" }}
-          src="../immagini/tavolo.png"
-          alt=""
-        />
-
-        <div className="start-container-option">
+      <div className="container-homepage">
+        <div className="container-table">
+          <img
+            style={{ position: "relative" }}
+            src="../immagini/tavolo.png"
+            alt=""
+          />
           <div className="homepage-option">
             <p>Dynamic T.C. {dynamic}</p>
           </div>
         </div>
+        <div className="container-card">
+          <Card setDynamic={setDynamic} />
+        </div>
       </div>
-      <Card setDynamic={setDynamic} />
     </>
   );
 }

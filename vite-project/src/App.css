@@ -59,6 +59,56 @@ body {
   color: white;
 }
 
+.container-homepage {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+.container-table {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 66%;
+}
+
+.container-card {
+  width: 100%;
+}
+
+.container-table img {
+  width: 70%;
+
+  margin: 0;
+}
+
 .homepage-option {
   background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.grid-container {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
 }
