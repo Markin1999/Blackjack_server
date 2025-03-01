@@ -8,7 +8,8 @@ const DATABASE_URL = process.env.DATABASE_URL;
 const db = pgPromise()(DATABASE_URL);
 
 const setupCards = async () => {
-  await db.none(`CREATE TABLE IF NOT EXISTS cards(
+  await db.none(`DROP TABLE IF EXISTS cards;
+    CREATE TABLE cards(
       id SERIAL NOT NULL PRIMARY KEY,
       name TEXT NOT NULL,
       value INTEGER NOT NULL CHECK (value>=0 AND value <=9),
