@@ -12,9 +12,7 @@ async function lowValue() {
 
 //Chiamo tutte le carte con il valore = a 1 e a 10
 async function highValue() {
-  return await db.manyOrNone(
-    `SELECT * FROM card WHERE value = 1 OR value = 10`
-  );
+  return await db.manyOrNone(`SELECT * FROM card WHERE value = 1 OR value = 0`);
 }
 
 //Funzione fetch
@@ -50,8 +48,19 @@ export default async function value(req, res) {
 
     const mazzi = cards.length / 52;
     const dynamicTC = prevValore / mazzi;
+
     const dynamicTC2 = high.length / low.length;
-    const dynamicTC3 = dynamicTC / dynamicTC2;
+    const dynamicTC3 =
+      high.length > 0 && low.length > 0 ? dynamicTC / dynamicTC2 : "Carte";
+
+    console.log(
+      "mazzi:",
+      mazzi,
+      "prevvalore:",
+      prevValore,
+      "synamic2:",
+      dynamicTC2
+    );
 
     res.status(201).json({ dynamicTC3 });
   } catch (error) {
