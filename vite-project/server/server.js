@@ -1,9 +1,12 @@
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { getAll, takecards } from "./controllers/controllers.js";
-import value from "./controllers/somma.js";
-import deleteFunction from "./controllers/delete.js";
+import {
+  getAll,
+  takecards,
+  value,
+  deleteFunction,
+} from "./controllers/controllers.js";
 
 dotenv.config();
 

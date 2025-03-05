@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetchFunction from "../Funzioni/fetchFunction";
 import Card from "./cards";
+import InputCard from "./inputCard";
 
 export default function Homepage() {
   const [dynamic, setDynamic] = useState(null);
@@ -24,7 +25,9 @@ export default function Homepage() {
           <div className="homepage-option">
             <p>Dynamic T.C. {dynamic}</p>
           </div>
+          <InputCard />
         </div>
+
         <div className="container-card">
           <Card setDynamic={setDynamic} />
         </div>

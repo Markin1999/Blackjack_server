@@ -112,3 +112,14 @@ body {
   height: auto;
   max-width: 200px;
 }
+
+.input-sum {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 32%;
+  transform: translate(-50%, -50%);
+}
