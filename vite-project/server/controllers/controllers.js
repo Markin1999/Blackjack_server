@@ -109,12 +109,12 @@ export const takecards = async (req, res) => {
   }
 };
 
-let prevValore = 0;
-let prevValoreprecedente = 0;
+let wongHalves = 0;
+let wongHalvesprecedente = 0;
 
 export const getAll = async (req, res) => {
   const card = await db.many(`SELECT * FROM card`);
-  prevValore = 0;
+  wongHalves = 0;
 
   res.status(200).json(card);
 };
@@ -138,7 +138,7 @@ async function highValue() {
 
 //Funzione fetch
 export async function value(req, res) {
-  prevValoreprecedente = prevValore;
+  wongHalvesprecedente = wongHalves;
   try {
     const { lastValue } = req.body;
 
@@ -150,24 +150,24 @@ export async function value(req, res) {
       const cardValue = parseInt(lastValue); // Converte il valore in numero
 
       if ([2].includes(cardValue)) {
-        prevValore += 0.5;
+        wongHalves += 0.5;
       } else if ([3, 6].includes(cardValue)) {
-        prevValore += 1;
+        wongHalves += 1;
       } else if ([4, 5].includes(cardValue)) {
-        prevValore += 1.5;
+        wongHalves += 1.5;
       } else if ([7].includes(cardValue)) {
-        prevValore += 0.5;
+        wongHalves += 0.5;
       } else if ([9].includes(cardValue)) {
-        prevValore -= 0.5;
+        wongHalves -= 0.5;
       } else if ([0, 1].includes(cardValue)) {
-        prevValore -= 1;
+        wongHalves -= 1;
       } else if ([8].includes(cardValue)) {
-        prevValore += 0; // Rimane invariato
+        wongHalves += 0; // Rimane invariato
       }
     }
 
     const mazzi = cards.length / 52;
-    const dynamicTC = prevValore / mazzi;
+    const dynamicTC = wongHalves / mazzi;
 
     const dynamicTC2 = high.length / low.length;
     const dynamicTC3 =
@@ -176,8 +176,8 @@ export async function value(req, res) {
     console.log(
       "mazzi:",
       mazzi,
-      "prevvalore:",
-      prevValore,
+      wongHalves,
+      "wongHalves",
       "synamic2:",
       dynamicTC2
     );
@@ -198,7 +198,7 @@ export async function deleteFunction(req, res) {
     );
 
     if (!toDelete) {
-      prevValore = prevValoreprecedente;
+      wongHalves = wongHalvesprecedente;
       return res
         .status(404)
         .json({ error: "Nessuna carta disponibile da eliminare" });
