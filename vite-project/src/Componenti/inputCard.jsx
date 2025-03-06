@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-export default function InputCard() {
-  const [value, setValue] = useState(21);
-
+export default function InputCard({ value, setValue }) {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
@@ -27,7 +25,7 @@ export default function InputCard() {
         <img
           src={`../card/${value}.png`}
           alt={`Carta ${value}`}
-          style={{ width: "80px", border: "5x solid black" }}
+          style={{ width: "80px", border: "1px solid black" }}
         />
       </div>
     </div>

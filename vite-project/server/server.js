@@ -6,6 +6,7 @@ import {
   takecards,
   value,
   deleteFunction,
+  takeMoves,
 } from "./controllers/controllers.js";
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.post("/", takecards);
 app.post("/dc", value);
 app.get("/", getAll);
 app.delete("/:id", deleteFunction);
+app.post("/moves", takeMoves);
 
 // LISTEN
 app.listen(PORT, () => {
