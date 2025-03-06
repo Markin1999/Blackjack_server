@@ -8,8 +8,10 @@ export default function InputCard({ value, setValue }) {
   return (
     <div>
       <div className="input-sum">
-        <div>
-          <label htmlFor="somma">Somma carte in mano</label>
+        <div style={{ display: "flex", gap: "5px" }}>
+          <label htmlFor="somma" style={{ color: "white" }}>
+            Somma carte in mano
+          </label>
           <select id="somma" name="somma" value={value} onChange={handleChange}>
             {[...Array(18)].map((_, i) => {
               const num = i + 4;

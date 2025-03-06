@@ -9,7 +9,7 @@ export default function Homepage() {
   const [dynamic, setDynamic] = useState(null);
   const [valueMazziere, setValueMazziere] = useState(3);
   const [value, setValue] = useState(21);
-  const [move, setMove] = useState();
+  const [move, setMove] = useState(null);
 
   const PORT = import.meta.env.VITE_PORT;
 
@@ -35,7 +35,11 @@ export default function Homepage() {
   };
 
   useEffect(() => {
-    takeMoves();
+    const timeout = setTimeout(() => {
+      takeMoves();
+    }, 500);
+
+    return () => clearTimeout(timeout);
   }, [value, valueMazziere, dynamic]);
 
   return (
