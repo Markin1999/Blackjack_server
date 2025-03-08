@@ -74,6 +74,8 @@ import db from "../initDB.js";
   }
 };*/
 
+
+
 export const takecards = async (req, res) => {
   const { repeats } = req.body;
 
@@ -173,19 +175,6 @@ export async function value(req, res) {
     const dynamicTC3 =
       high.length > 0 && low.length > 0 ? dynamicTC / dynamicTC2 : "Carte";
 
-    console.log(
-      "wonghalves",
-      wongHalves,
-      "mazzi",
-      mazzi,
-      "dynamicTC",
-      dynamicTC,
-      "dynamic2",
-      dynamicTC2,
-      "dynamic3",
-      dynamicTC3
-    );
-
     res.status(201).json({ dynamicTC3 });
   } catch (error) {
     console.error("Errore nel recupero dei dati:", error);
@@ -195,6 +184,8 @@ export async function value(req, res) {
 
 export async function deleteFunction(req, res) {
   const { id } = req.params;
+  console.log("DELETE", id);
+
   try {
     const toDelete = await db.oneOrNone(
       `SELECT id FROM card WHERE value = $1 ORDER BY value ASC LIMIT 1`,

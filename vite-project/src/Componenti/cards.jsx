@@ -6,9 +6,14 @@ export default function Card({ setDynamic }) {
   const [key, setKey] = useState(null);
   const [lunghezza, setLunghezza] = useState(null);
 
+  useEffect(() => {
+    getAll();
+  }, []);
+
   const PORT = import.meta.env.VITE_PORT;
 
   const deleteCard = async (id) => {
+    console.log("Entrato in deleteCard con ID:", id);
     try {
       const response = await fetch(`http://localhost:${PORT}/${id}`, {
         method: "DELETE",
@@ -39,19 +44,22 @@ export default function Card({ setDynamic }) {
     }
   };
 
-  useEffect(() => {
-    getAll();
-  }, []);
-
   const handleClick = async (e) => {
     const value = e.target.getAttribute("data-value");
+    const safeValue = Number(value);
 
-    if (!value) return;
+    if (!safeValue) {
+      console.log("Value no");
+      return;
+    }
 
     try {
-      await deleteCard(value);
-      setKey(value);
-      await dynamicTc(value);
+      await deleteCard(safeValue);
+
+      setKey(safeValue);
+      console.log("dynamic", dynamicTc);
+      await dynamicTc(safeValue);
+      console.log("terminato", dynamicTc);
     } catch (error) {
       console.error("Errore durante la gestione del click:", error);
     }

@@ -10,7 +10,7 @@ export default function InputCard({ value, setValue }) {
       <div className="input-sum">
         <div style={{ display: "flex", gap: "5px" }}>
           <label htmlFor="somma" style={{ color: "white" }}>
-            Somma carte in mano
+            Somma carte
           </label>
           <select id="somma" name="somma" value={value} onChange={handleChange}>
             {[...Array(18)].map((_, i) => {

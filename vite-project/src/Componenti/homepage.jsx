@@ -35,12 +35,62 @@ export default function Homepage() {
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      takeMoves();
-    }, 500);
-
-    return () => clearTimeout(timeout);
+    takeMoves();
   }, [value, valueMazziere, dynamic]);
+
+  const [messaggio, setMessaggio] = useState("");
+
+  const calcolaMessaggio = (tc) => {
+    if (tc > 5) {
+      setMessaggio(
+        "Il mazzo è estremamente favorevole! Ottima occasione per puntare alto. (+10 unità)"
+      );
+    } else if (tc > 4) {
+      setMessaggio(
+        "Alta probabilità di carte favorevoli! Approfitta delle occasioni migliori. (+8 unità)"
+      );
+    } else if (tc > 3) {
+      setMessaggio(
+        "Ci sono molte carte alte nel mazzo. Considera di aumentare la puntata. (+6 unità)"
+      );
+    } else if (tc > 2) {
+      setMessaggio(
+        "Buone probabilità di carte alte. Gioca in modo aggressivo quando opportuno. (+4 unità)"
+      );
+    } else if (tc > 1) {
+      setMessaggio(
+        "Il mazzo è leggermente favorevole. Gioca con intelligenza e sfrutta il vantaggio. (+2 unità)"
+      );
+    } else if (tc === 0) {
+      setMessaggio(
+        "Il mazzo è bilanciato. Nessun vantaggio evidente. (+1 unità)"
+      );
+    } else if (tc < -5) {
+      setMessaggio(
+        "Il mazzo è estremamente sfavorevole! Evita rischi e riduci le puntate al minimo. (+0.5 unità)"
+      );
+    } else if (tc < -3) {
+      setMessaggio(
+        "Probabilità sfavorevoli. Gioca conservativo e non prendere rischi inutili. (+0.5 unità)"
+      );
+    } else if (tc < -2) {
+      setMessaggio(
+        "Molte carte basse nel mazzo. Sii prudente e riduci le puntate. (+1 unità)"
+      );
+    } else if (tc < -1) {
+      setMessaggio(
+        "Il mazzo non è favorevole. Valuta se ridurre la puntata o cambiare strategia. (+1 unità)"
+      );
+    } else {
+      setMessaggio(
+        "Resta attento e adatta la strategia in base alle condizioni del mazzo. (+1 unità)"
+      );
+    }
+  };
+
+  useEffect(() => {
+    calcolaMessaggio(dynamic);
+  }, [dynamic]);
 
   return (
     <>
@@ -52,14 +102,17 @@ export default function Homepage() {
             alt=""
           />
           <div className="homepage-option">
-            <p>Dynamic T.C. {dynamic}</p>
-            {move ? <p>{move}</p> : <p>Attendere...</p>}
+            <InputCard value={value} setValue={setValue} />
+            <div className="container-message">
+              <p>Dynamic T.C. {dynamic}</p>
+              {move ? <p>{move}</p> : <p>Attendere...</p>}
+              <p>{messaggio}</p>
+            </div>
+            <InputMazziere
+              valueMazziere={valueMazziere}
+              setValueMazziere={setValueMazziere}
+            />
           </div>
-          <InputMazziere
-            valueMazziere={valueMazziere}
-            setValueMazziere={setValueMazziere}
-          />
-          <InputCard value={value} setValue={setValue} />
         </div>
 
         <div className="container-card">
