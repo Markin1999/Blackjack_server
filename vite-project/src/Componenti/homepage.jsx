@@ -36,7 +36,7 @@ export default function Homepage() {
 
   useEffect(() => {
     takeMoves();
-  }, [value, valueMazziere, dynamic]);
+  }, [value, valueMazziere]);
 
   const [messaggio, setMessaggio] = useState("");
 

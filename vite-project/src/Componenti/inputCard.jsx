@@ -8,7 +8,15 @@ export default function InputCard({ value, setValue }) {
   return (
     <div>
       <div className="input-sum">
-        <div style={{ display: "flex", gap: "5px" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "5px",
+            alignItems: "center",
+            whiteSpace: "nowrap",
+            flexWrap: "nowrap",
+          }}
+        >
           <label htmlFor="somma" style={{ color: "white" }}>
             Somma carte
           </label>

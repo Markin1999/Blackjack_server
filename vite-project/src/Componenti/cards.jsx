@@ -48,11 +48,6 @@ export default function Card({ setDynamic }) {
     const value = e.target.getAttribute("data-value");
     const safeValue = Number(value);
 
-    if (!safeValue) {
-      console.log("Value no");
-      return;
-    }
-
     try {
       await deleteCard(safeValue);
 
