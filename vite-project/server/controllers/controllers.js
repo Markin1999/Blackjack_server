@@ -74,8 +74,6 @@ import db from "../initDB.js";
   }
 };*/
 
-
-
 export const takecards = async (req, res) => {
   const { repeats } = req.body;
 
@@ -151,7 +149,15 @@ export async function value(req, res) {
     if (lastValue !== undefined && lastValue !== null) {
       const cardValue = parseInt(lastValue); // Converte il valore in numero
 
-      if ([2].includes(cardValue)) {
+      if ([2, 3, 4, 5, 6].includes(cardValue)) {
+        wongHalves += 1;
+      } else if ([7, 8, 9].includes(cardValue)) {
+        wongHalves += 0; // Nessuna variazione
+      } else if ([0, 1].includes(cardValue)) {
+        wongHalves -= 1;
+      }
+
+      /*if ([2].includes(cardValue)) {
         wongHalves += 0.5;
       } else if ([3, 6].includes(cardValue)) {
         wongHalves += 1;
@@ -165,7 +171,7 @@ export async function value(req, res) {
         wongHalves -= 1;
       } else if ([8].includes(cardValue)) {
         wongHalves += 0; // Rimane invariato
-      }
+      }*/
     }
 
     const mazzi = cards.length / 52;

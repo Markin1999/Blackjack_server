@@ -51,7 +51,7 @@ export default function Start() {
         <div className="start-container-option">
           <button onClick={handleSubmit}>START</button>
           <div className="start-option">
-            <label htmlFor="scelta">Scegli quanti mazzi:</label>
+            <label htmlFor="scelta">Numero mazzi utilizzati:</label>
             <select
               id="scelta"
               name="scelta"
